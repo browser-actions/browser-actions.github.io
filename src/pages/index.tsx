@@ -13,30 +13,14 @@ import { ToolList, ToolListItem } from "../components/toolList";
 type SetupActionName = "setup-chrome" | "setup-firefox" | "setup-edge";
 type ExtensionActionName = "release-chrome-extension" | "release-firefox-addon";
 
-const setupActions: { title: SetupActionName; link: string }[] = [
-  {
-    title: "setup-chrome",
-    link: "setup-chrome",
-  },
-  {
-    title: "setup-firefox",
-    link: "setup-firefox",
-  },
-  {
-    title: "setup-edge",
-    link: "setup-edge",
-  },
+const setupActions: SetupActionName[] = [
+  "setup-chrome",
+  "setup-firefox",
+  "setup-edge",
 ];
-
-const extensionActions: { title: ExtensionActionName; link: string }[] = [
-  {
-    title: "release-chrome-extension",
-    link: "release-chrome-extension",
-  },
-  {
-    title: "release-firefox-addon",
-    link: "release-firefox-addon",
-  },
+const extensionActions: ExtensionActionName[] = [
+  "release-chrome-extension",
+  "release-firefox-addon",
 ];
 
 const IndexPage: React.FC<PageProps> = () => {
@@ -72,12 +56,12 @@ const IndexPage: React.FC<PageProps> = () => {
             GitHub Actions for setting up browsers in the workflow.
           </Paragraph>
           <ToolList>
-            {setupActions.map(({ title, link }) => (
+            {setupActions.map((name) => (
               <ToolListItem
-                key={title}
-                title={title}
-                linkTo={link}
-                logo={logos[title]}
+                key={name}
+                title={name}
+                linkTo={name}
+                logo={logos[name]}
               />
             ))}
           </ToolList>
@@ -90,12 +74,12 @@ const IndexPage: React.FC<PageProps> = () => {
             in the workflow.
           </Paragraph>
           <ToolList>
-            {extensionActions.map(({ title, link }) => (
+            {extensionActions.map((name) => (
               <ToolListItem
-                key={title}
-                title={title}
-                linkTo={link}
-                logo={logos[title]}
+                key={name}
+                title={name}
+                linkTo={name}
+                logo={logos[name]}
               />
             ))}
           </ToolList>
