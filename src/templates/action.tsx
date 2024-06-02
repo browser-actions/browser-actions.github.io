@@ -11,6 +11,7 @@ import {
 } from "grommet";
 import { Actions as ActionsIcon, Github as GithubIcon } from "grommet-icons";
 import { Layout } from "../components/layout";
+import { ExternalLink } from "../components/link";
 import { Seo } from "../components/seo";
 import type { ActionType } from "../types";
 
@@ -30,20 +31,14 @@ const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
       <Page kind="narrow" margin={{ vertical: "xlarge" }}>
         <PageContent>
           <Box direction="row" gap="medium" pad={{ bottom: "medium" }}>
-            <Anchor
+            <ExternalLink
               href={`https://github.com/marketplace/actions/${name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              as="a"
               label="View action on Marketplace"
               icon={<ActionsIcon />}
               size="small"
             />
-            <Anchor
+            <ExternalLink
               href={`https://github.com/browser-actions/${name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              as="a"
               label="View action on GitHub"
               icon={<GithubIcon />}
               size="small"

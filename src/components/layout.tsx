@@ -4,7 +4,6 @@ import { Grommet } from "grommet";
 import type * as React from "react";
 import "./layout.css";
 import {
-  Anchor,
   Box,
   Button,
   Footer,
@@ -15,6 +14,7 @@ import {
   grommet,
 } from "grommet";
 import { Github as GithubIcon } from "grommet-icons";
+import { ExternalLink } from "./link";
 
 interface Props {
   children: React.ReactNode;
@@ -68,10 +68,8 @@ const AppHeader = () => {
         />
       </Box>
       <Box align="end">
-        <Anchor
+        <ExternalLink
           href="https://github.com/browser-actions"
-          target="_blank"
-          rel="noopener noreferrer"
           label="GitHub"
           icon={<GithubIcon />}
         />
@@ -85,22 +83,14 @@ const AppFooter = () => {
     <Footer background="dark-1" pad="medium" justify="between">
       <Text>
         Copyright by{" "}
-        <Anchor
-          href="https://github.com/ueokande"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <ExternalLink href="https://github.com/ueokande">
           @ueokande
-        </Anchor>{" "}
+        </ExternalLink>{" "}
         and all contributors
       </Text>
-      <Anchor
-        href="https://github.com/browser-actions"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <ExternalLink href="https://github.com/browser-actions">
         GitHub
-      </Anchor>
+      </ExternalLink>
     </Footer>
   );
 };
