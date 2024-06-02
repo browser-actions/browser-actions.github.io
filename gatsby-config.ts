@@ -1,6 +1,7 @@
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
+  jsxRuntime: "automatic",
   siteMetadata: {
     title: "browser-actions-web",
     siteUrl: "https://www.yourdomain.tld",
