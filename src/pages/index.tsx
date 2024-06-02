@@ -1,11 +1,18 @@
-import { type HeadFC, Link, type PageProps, graphql } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image";
+import type { HeadFC, PageProps } from "gatsby";
 import { Box, Heading, Page, PageContent, Paragraph } from "grommet";
+import {
+  Chrome as ChromeIcon,
+  Edge as EdgeIcon,
+  Firefox as FirefoxIcon,
+} from "grommet-icons";
 import type * as React from "react";
 import { Layout } from "../components/layout";
 import { ToolList, ToolListItem } from "../components/toolList";
 
-const setupActions = [
+type SetupActionName = "setup-chrome" | "setup-firefox" | "setup-edge";
+type ExtensionActionName = "release-chrome-extension" | "release-firefox-addon";
+
+const setupActions: { title: SetupActionName; link: string }[] = [
   {
     title: "setup-chrome",
     link: "setup-chrome",
@@ -20,27 +27,25 @@ const setupActions = [
   },
 ];
 
-const extensionActions = [
+const extensionActions: { title: ExtensionActionName; link: string }[] = [
   {
     title: "release-chrome-extension",
     link: "release-chrome-extension",
   },
   {
-    title: "release-firefox-extension",
-    link: "release-firefox-extension",
+    title: "release-firefox-addon",
+    link: "release-firefox-addon",
   },
 ];
 
 const IndexPage: React.FC<PageProps> = () => {
-  const logo = (
-    <StaticImage
-      src="https://picsum.photos/128"
-      alt="Lolem ipsum"
-      width={128}
-      height={128}
-      objectFit="none"
-    />
-  );
+  const logos = {
+    "setup-chrome": <ChromeIcon color="plain" size="xlarge" />,
+    "setup-firefox": <FirefoxIcon color="plain" size="xlarge" />,
+    "setup-edge": <EdgeIcon color="plain" size="xlarge" />,
+    "release-chrome-extension": <ChromeIcon color="plain" size="xlarge" />,
+    "release-firefox-addon": <FirefoxIcon color="plain" size="xlarge" />,
+  };
 
   return (
     <Layout>
@@ -53,7 +58,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <Heading level="1" margin="none" fill>
             GitHub Actions for browsers
           </Heading>
-          <Paragraph fill>
+          <Paragraph textAlign="center" fill>
             Browser development tools for GitHub Actions workflows.
           </Paragraph>
         </Box>
@@ -62,16 +67,16 @@ const IndexPage: React.FC<PageProps> = () => {
           <Heading level="2" textAlign="center" size="xlarge">
             Setup browser
           </Heading>
-          <Paragraph fill>
+          <Paragraph textAlign="center" size="large" fill>
             GitHub Actions for setting up browsers in the workflow.
           </Paragraph>
           <ToolList>
-            {setupActions.map((action) => (
+            {setupActions.map(({ title, link }) => (
               <ToolListItem
-                key={action.title}
-                title={action.title}
-                linkTo={action.link}
-                logo={logo}
+                key={title}
+                title={title}
+                linkTo={link}
+                logo={logos[title]}
               />
             ))}
           </ToolList>
@@ -79,17 +84,17 @@ const IndexPage: React.FC<PageProps> = () => {
           <Heading level="2" textAlign="center" size="xlarge">
             Release extension
           </Heading>
-          <Paragraph fill>
+          <Paragraph textAlign="center" size="large" fill>
             GitHub Actions for releasing Chrome extensions and Firefox add-ons
             in the workflow.
           </Paragraph>
           <ToolList>
-            {extensionActions.map((action) => (
+            {extensionActions.map(({ title, link }) => (
               <ToolListItem
-                key={action.title}
-                title={action.title}
-                linkTo={action.link}
-                logo={logo}
+                key={title}
+                title={title}
+                linkTo={link}
+                logo={logos[title]}
               />
             ))}
           </ToolList>

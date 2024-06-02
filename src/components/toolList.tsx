@@ -8,7 +8,7 @@ interface ToolListProps {
 
 export const ToolList: React.FC<ToolListProps> = ({ children }) => {
   return (
-    <Box direction="row" fill="horizontal">
+    <Box direction="row" align="center" justify="center" fill="horizontal">
       {children}
     </Box>
   );
@@ -29,7 +29,9 @@ export const ToolListItem: React.FC<ToolListItemProps> = ({
   return (
     <Box align="center" justify="center" margin="medium">
       <Button as={Link} {...{ to: linkTo }}>
-        <Box margin="medium">{logo}</Box>
+        <Box margin="medium" align="center">
+          {logo}
+        </Box>
         <Heading level="3" textAlign="center" size="small" margin="none">
           {title}
         </Heading>
