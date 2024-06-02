@@ -59,7 +59,7 @@ const IndexPage: React.FC<PageProps> = () => {
           <Heading level="1" margin="none" fill>
             GitHub Actions for browsers
           </Heading>
-          <Paragraph textAlign="center" fill>
+          <Paragraph fill>
             Browser development tools for GitHub Actions workflows.
           </Paragraph>
         </Box>
