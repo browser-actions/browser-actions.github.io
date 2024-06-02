@@ -1,4 +1,5 @@
-import { Link } from "gatsby";
+import { Link, graphql, useStaticQuery } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Grommet } from "grommet";
 import type * as React from "react";
 import "./layout.css";
@@ -19,75 +20,98 @@ interface Props {
   children: React.ReactNode;
 }
 
-const AppName = "browser-actions";
+const AppName = "Browser Actions";
+
+const AppHeader = () => {
+  const actionItems = ["setup-chrome", "setup-firefox", "setup-edge"];
+  const extensionItems = ["release-chrome-extension", "release-firefox-addon"];
+  const { icon } = useStaticQuery(graphql`
+    query Icon {
+      icon: file(relativePath: { eq: "icon.png" }) {
+        childImageSharp {
+          gatsbyImageData(width: 24, height: 24)
+        }
+      }
+    }
+  `);
+
+  return (
+    <Header
+      background="white"
+      fill="horizontal"
+      pad={{ horizontal: "large", vertical: "none" }}
+      style={{
+        boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px 0px",
+      }}
+      sticky="scrollup"
+    >
+      <Box direction="row" align="center" gap="medium">
+        <Button as={Link} {...{ to: "/" }}>
+          <GatsbyImage
+            image={icon.childImageSharp.gatsbyImageData}
+            alt="icon"
+          />
+          <Text margin={{ left: "xsmall" }}>{AppName}</Text>
+        </Button>
+        <Menu
+          label="Open Source"
+          items={[
+            actionItems.map((action) => ({
+              label: action,
+              as: (props) => <Link to={`/${action}`} {...props} />,
+            })),
+            extensionItems.map((extension) => ({
+              label: extension,
+              as: (props) => <Link to={`/${extension}`} {...props} />,
+            })),
+          ]}
+        />
+      </Box>
+      <Box align="end">
+        <Anchor
+          href="https://github.com/browser-actions"
+          target="_blank"
+          rel="noopener noreferrer"
+          label="GitHub"
+          icon={<GithubIcon />}
+        />
+      </Box>
+    </Header>
+  );
+};
+
+const AppFooter = () => {
+  return (
+    <Footer background="dark-1" pad="medium" justify="between">
+      <Text>
+        Copyright by{" "}
+        <Anchor
+          href="https://github.com/ueokande"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          @ueokande
+        </Anchor>{" "}
+        and all contributors
+      </Text>
+      <Anchor
+        href="https://github.com/browser-actions"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub
+      </Anchor>
+    </Footer>
+  );
+};
 
 export const Layout: React.FC<Props> = ({ children }) => {
   return (
     <Grommet theme={grommet} full>
       <Box>
-        <Header
-          background="white"
-          fill="horizontal"
-          pad={{ horizontal: "small", vertical: "none" }}
-          style={{
-            boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px 0px",
-          }}
-          sticky="scrollup"
-        >
-          <Box direction="row" align="center">
-            <Button margin="small" as={Link} {...{ to: "/" }}>
-              {AppName}
-            </Button>
-            <Menu
-              label="setup actions"
-              items={[
-                [
-                  {
-                    label: "setup-chrome",
-                    as: (props) => <Link to="/setup-chrome" {...props} />,
-                  },
-                  {
-                    label: "setup-firefox",
-                    as: (props) => <Link to="/setup-firefox" {...props} />,
-                  },
-                  {
-                    label: "setup-edge",
-                    as: (props) => <Link to="/setup-edge" {...props} />,
-                  },
-                ],
-                [
-                  {
-                    label: "release-chrome-extension",
-                    as: (props) => (
-                      <Link to="/release-chrome-extension" {...props} />
-                    ),
-                  },
-                  {
-                    label: "release-firefox-extension",
-                    as: (props) => (
-                      <Link to="/release-firefox-extension" {...props} />
-                    ),
-                  },
-                ],
-              ]}
-            />
-          </Box>
-          <Box align="end">
-            <Anchor
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              as="a"
-              label="GitHub"
-              icon={<GithubIcon />}
-            />
-          </Box>
-        </Header>
+        <AppHeader />
         <Main flex>{children}</Main>
-        <Footer background="dark-1" pad="medium" justify="between">
-          <Text>© Copyright by {AppName} developers</Text>
-          <Anchor href="#">GitHub</Anchor>
-        </Footer>
+        <AppFooter />
       </Box>
     </Grommet>
   );

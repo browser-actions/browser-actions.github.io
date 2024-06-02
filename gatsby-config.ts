@@ -3,18 +3,34 @@ import type { GatsbyConfig } from "gatsby";
 const config: GatsbyConfig = {
   jsxRuntime: "automatic",
   siteMetadata: {
-    title: "browser-actions-web",
-    siteUrl: "https://www.yourdomain.tld",
+    title: "Browser Actions",
+    description: "GitHub Actions for Browsers",
+    siteUrl: "https://browser-actions.github.io",
   },
-  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
-  // If you use VSCode you can also use the GraphQL plugin
-  // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "images",
+        path: `${__dirname}/src/images/`,
+      },
+    },
     "gatsby-plugin-styled-components",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
+    {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        name: "Browser Actions - GitHub Actions for Browsers",
+        short_name: "Browser Actions",
+        start_url: "/",
+        background_color: "#ffffff",
+        display: "standalone",
+        icon: "src/images/icon.png",
+      },
+    },
   ],
 };
 

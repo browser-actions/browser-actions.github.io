@@ -11,13 +11,16 @@ import {
 } from "grommet";
 import { Actions as ActionsIcon, Github as GithubIcon } from "grommet-icons";
 import { Layout } from "../components/layout";
+import { Seo } from "../components/seo";
 import type { ActionType } from "../types";
 
+type PageContext = {
+  name: string;
+  action: ActionType;
+};
+
 interface Props {
-  pageContext: {
-    name: string;
-    action: ActionType;
-  };
+  pageContext: PageContext;
 }
 
 const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
@@ -50,7 +53,9 @@ const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
           <Heading level="1" margin="none">
             {name}
           </Heading>
-          <Paragraph size="large">{action.description}</Paragraph>
+          <Paragraph size="large" fill>
+            {action.description}
+          </Paragraph>
 
           <Heading level="2">Inputs</Heading>
           {action.inputs ? (
@@ -83,6 +88,9 @@ const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
   );
 };
 
-export const Head: HeadFC = () => <title>Home Page</title>;
+export const Head: HeadFC<unknown, PageContext> = ({ pageContext }) => {
+  const { name } = pageContext;
+  return <Seo title={name} />;
+};
 
 export default ActionPage;

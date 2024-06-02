@@ -14,6 +14,9 @@ dependencies:
   gatsby-plugin-image:
     specifier: ^3.13.1
     version: 3.13.1(@babel/core@7.20.12)(gatsby-plugin-sharp@5.13.1)(gatsby-source-filesystem@5.13.1)(gatsby@5.13.5)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)
+  gatsby-plugin-manifest:
+    specifier: ^5.13.1
+    version: 5.13.1(gatsby@5.13.5)(graphql@16.8.0)
   gatsby-plugin-sharp:
     specifier: ^5.13.1
     version: 5.13.1(gatsby@5.13.5)(graphql@16.8.0)
@@ -5879,6 +5882,22 @@ packages:
     transitivePeerDependencies:
       - graphql
       - supports-color
+    dev: false
+
+  /gatsby-plugin-manifest@5.13.1(gatsby@5.13.5)(graphql@16.8.0):
+    resolution: {integrity: sha512-F8zGMYz2tRDAzQO7hLrYv+xCFyIoeySeGsEk9j1KTdWB4liVQvLtFSXzj7yljyOTinDmA7mDStCiQFStC0rHZQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      gatsby: ^5.0.0-next
+    dependencies:
+      '@babel/runtime': 7.21.5
+      gatsby: 5.13.5(babel-eslint@10.1.0)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+      gatsby-core-utils: 4.13.1
+      gatsby-plugin-utils: 4.13.1(gatsby@5.13.5)(graphql@16.8.0)
+      semver: 7.5.4
+      sharp: 0.32.6
+    transitivePeerDependencies:
+      - graphql
     dev: false
 
   /gatsby-plugin-page-creator@5.13.1(gatsby@5.13.5)(graphql@16.8.0):

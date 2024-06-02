@@ -7,6 +7,7 @@ import {
 } from "grommet-icons";
 import type * as React from "react";
 import { Layout } from "../components/layout";
+import { Seo } from "../components/seo";
 import { ToolList, ToolListItem } from "../components/toolList";
 
 type SetupActionName = "setup-chrome" | "setup-firefox" | "setup-edge";
@@ -106,4 +107,4 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 
-export const Head: HeadFC = () => <title>Home Page</title>;
+export const Head: HeadFC = () => <Seo />;
