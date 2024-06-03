@@ -1,7 +1,7 @@
 import { Link, graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Grommet } from "grommet";
-import type * as React from "react";
+import * as React from "react";
 import "./layout.css";
 import {
   Box,
@@ -61,11 +61,15 @@ const AppHeader = () => {
           items={[
             actionItems.map((action) => ({
               label: action,
-              as: (props) => <Link to={`/${action}`} {...props} />,
+              as: React.forwardRef((props, ref) => (
+                <Link to={`/${action}`} {...props} ref={ref} />
+              )),
             })),
             extensionItems.map((extension) => ({
               label: extension,
-              as: (props) => <Link to={`/${extension}`} {...props} />,
+              as: React.forwardRef((props, ref) => (
+                <Link to={`/${extension}`} {...props} ref={ref} />
+              )),
             })),
           ]}
         />
