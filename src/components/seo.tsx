@@ -18,6 +18,9 @@ query Site {
       title
       description
       siteUrl
+      social {
+        twitter
+      }
     }
   }
   cover: file(relativePath: { eq: "cover.png" }) {
@@ -43,6 +46,15 @@ query Site {
       <meta property="og:image" content={coverUrl} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content="website" />
+      {site.siteMetadata?.social?.twitter && (
+        <meta
+          name="twitter:creator"
+          content={`@${site.siteMetadata.social.twitter}`}
+        />
+      )}
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:image" content={coverUrl} />
       {children}
     </>
   );

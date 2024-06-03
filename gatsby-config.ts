@@ -6,6 +6,9 @@ const config: GatsbyConfig = {
     title: "Browser Actions",
     description: "GitHub Actions for Browsers",
     siteUrl: "https://browser-actions.github.io",
+    social: {
+      twitter: "ueokande",
+    },
   },
   graphqlTypegen: true,
   plugins: [
