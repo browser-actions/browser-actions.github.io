@@ -20,16 +20,19 @@ interface Props {
   children: React.ReactNode;
 }
 
-const AppName = "Browser Actions";
-
 const AppHeader = () => {
   const actionItems = ["setup-chrome", "setup-firefox", "setup-edge"];
   const extensionItems = ["release-chrome-extension", "release-firefox-addon"];
-  const { icon } = useStaticQuery(graphql`
+  const { icon, site } = useStaticQuery(graphql`
     query Icon {
       icon: file(relativePath: { eq: "icon.png" }) {
         childImageSharp {
           gatsbyImageData(width: 24, height: 24)
+        }
+      }
+      site {
+        siteMetadata {
+          title
         }
       }
     }
@@ -51,7 +54,7 @@ const AppHeader = () => {
             image={icon.childImageSharp.gatsbyImageData}
             alt="icon"
           />
-          <Text margin={{ left: "xsmall" }}>{AppName}</Text>
+          <Text margin={{ left: "xsmall" }}>{site.siteMetadata.title}</Text>
         </Button>
         <Menu
           label="Open Source"
