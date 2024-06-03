@@ -1,6 +1,5 @@
 import type { HeadFC, PageProps } from "gatsby";
 import {
-  Anchor,
   Box,
   Heading,
   NameValueList,
@@ -10,6 +9,7 @@ import {
   Paragraph,
 } from "grommet";
 import { Actions as ActionsIcon, Github as GithubIcon } from "grommet-icons";
+import { CodeBlock } from "../components/code";
 import { Layout } from "../components/layout";
 import { ExternalLink } from "../components/link";
 import { Seo } from "../components/seo";
@@ -26,6 +26,8 @@ interface Props {
 
 const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
   const { name, action } = pageContext;
+  const usage = `- uses: browser-actions/${name}@latest`;
+
   return (
     <Layout>
       <Page kind="narrow" margin={{ vertical: "xlarge" }}>
@@ -51,6 +53,9 @@ const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
           <Paragraph size="large" fill>
             {action.description}
           </Paragraph>
+
+          <Heading level="2">Usage</Heading>
+          <CodeBlock>{usage}</CodeBlock>
 
           <Heading level="2">Inputs</Heading>
           {action.inputs ? (
