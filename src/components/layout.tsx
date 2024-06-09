@@ -44,9 +44,9 @@ const AppHeader = () => {
       fill="horizontal"
       pad={{ horizontal: "large", vertical: "none" }}
       style={{
+        position: "absolute",
         boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px 0px",
       }}
-      sticky="scrollup"
     >
       <Box direction="row" align="center" gap="medium">
         <Button as={Link} {...{ to: "/" }}>
@@ -105,11 +105,9 @@ const AppFooter = () => {
 export const Layout: React.FC<Props> = ({ children }) => {
   return (
     <Grommet theme={grommet} full>
-      <Box>
-        <AppHeader />
-        <Main flex>{children}</Main>
-        <AppFooter />
-      </Box>
+      <AppHeader />
+      <Main margin={{ top: "large" }}>{children}</Main>
+      <AppFooter />
     </Grommet>
   );
 };
