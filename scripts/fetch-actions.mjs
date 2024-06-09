@@ -15,7 +15,7 @@ const { GITHUB_TOKEN } = process.env;
 const getLatestTagNames = async (owner, repo) => {
   const url = `https://api.github.com/repos/${owner}/${repo}/releases/latest`;
   const headers = GITHUB_TOKEN
-    ? { Authorization: `token ${GITHUB_TOKEN}` }
+    ? { Authorization: `Bearer ${GITHUB_TOKEN}` }
     : {};
   const res = await fetch(url, { headers });
   return (await res.json()).tag_name;
