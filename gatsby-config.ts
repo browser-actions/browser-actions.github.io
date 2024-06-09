@@ -19,6 +19,7 @@ const config: GatsbyConfig = {
         siteUrl: "https://browser-actions.dev",
       },
     },
+    "gatsby-plugin-robots-txt",
     {
       resolve: "gatsby-source-filesystem",
       options: {
