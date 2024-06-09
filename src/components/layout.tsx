@@ -44,9 +44,9 @@ const AppHeader = () => {
       fill="horizontal"
       pad={{ horizontal: "large", vertical: "none" }}
       style={{
+        position: "absolute",
         boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px 0px",
       }}
-      sticky="scrollup"
     >
       <Box direction="row" align="center" gap="medium">
         <Button as={Link} {...{ to: "/" }}>
@@ -87,7 +87,15 @@ const AppHeader = () => {
 
 const AppFooter = () => {
   return (
-    <Footer background="dark-1" pad="medium" justify="between">
+    <Footer
+      background="dark-1"
+      pad="medium"
+      justify="between"
+      style={{
+        position: "sticky",
+        top: "100vh",
+      }}
+    >
       <Text>
         Copyright by{" "}
         <ExternalLink href="https://github.com/ueokande">
@@ -105,11 +113,11 @@ const AppFooter = () => {
 export const Layout: React.FC<Props> = ({ children }) => {
   return (
     <Grommet theme={grommet} full>
-      <Box>
-        <AppHeader />
-        <Main flex>{children}</Main>
-        <AppFooter />
-      </Box>
+      <AppHeader />
+      <Main margin={{ top: "large" }} fill={false}>
+        {children}
+      </Main>
+      <AppFooter />
     </Grommet>
   );
 };
