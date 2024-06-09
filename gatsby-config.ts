@@ -14,6 +14,12 @@ const config: GatsbyConfig = {
   plugins: [
     "gatsby-plugin-sitemap",
     {
+      resolve: "gatsby-plugin-canonical-urls",
+      options: {
+        siteUrl: "https://browser-actions.dev",
+      },
+    },
+    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "images",
