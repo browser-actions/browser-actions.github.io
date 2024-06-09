@@ -26,19 +26,32 @@ interface Props {
   pageContext: PageContext;
 }
 
+const MAX_LINE_LENGTH = 54;
+
 const generateUsage = (
   name: string,
   action: ActionType,
   version: VersionType,
 ): string => {
-  let line = `- uses: browser-actions/${name}@${version.major}`;
+  let line = `- uses: browser-actions/${name}@${version.major}\n`;
   if (action.inputs) {
-    line += "\n  with:";
+    line += "  with:\n";
     for (const [key, input] of Object.entries(action.inputs)) {
+      const segmenter = new Intl.Segmenter("en", { granularity: "word" });
+      let commentLine = "";
+      for (const { segment } of segmenter.segment(input.description)) {
+        commentLine += `${segment}`;
+        if (commentLine.length > MAX_LINE_LENGTH) {
+          line += `    # ${commentLine.trim()}\n`;
+          commentLine = "";
+        }
+      }
+      if (commentLine !== "") {
+        line += `    # ${commentLine.trim()}\n`;
+      }
+
       const value = input.default ?? `<your ${key.replace(/[-_]/g, " ")}>`;
-      line += `\n    # ${key}: ${input.description}`;
-      line += `\n    ${key}: "${value}"`;
-      line += "\n";
+      line += `    ${key}: "${value}"\n`;
     }
   }
 
