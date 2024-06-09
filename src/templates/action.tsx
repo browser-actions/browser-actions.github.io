@@ -9,6 +9,7 @@ import {
   Paragraph,
 } from "grommet";
 import { Actions as ActionsIcon, Github as GithubIcon } from "grommet-icons";
+import React from "react";
 import { CodeBlock } from "../components/code";
 import { Layout } from "../components/layout";
 import { ExternalLink } from "../components/link";
@@ -25,9 +26,31 @@ interface Props {
   pageContext: PageContext;
 }
 
+const generateUsage = (
+  name: string,
+  action: ActionType,
+  version: VersionType,
+): string => {
+  let line = `- uses: browser-actions/${name}@${version.major}`;
+  if (action.inputs) {
+    line += "\n  with:";
+    for (const [key, input] of Object.entries(action.inputs)) {
+      const value = input.default ?? `<your ${key.replace(/[-_]/g, " ")}>`;
+      line += `\n    # ${key}: ${input.description}`;
+      line += `\n    ${key}: "${value}"`;
+      line += "\n";
+    }
+  }
+
+  return line.trim();
+};
+
 const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
   const { name, action, version } = pageContext;
-  const usage = `- uses: browser-actions/${name}@${version.major}`;
+  const usage: string = React.useMemo(
+    () => generateUsage(name, action, version),
+    [name, action, version],
+  );
 
   return (
     <Layout>
