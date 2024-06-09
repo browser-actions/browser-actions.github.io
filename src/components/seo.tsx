@@ -39,6 +39,7 @@ query Site {
 
   return (
     <>
+      <html lang="en" />
       <title>{title}</title>
       <meta name="description" content={metaDescription} />
       <meta name="image" content={coverUrl} />

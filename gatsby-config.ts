@@ -5,13 +5,21 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: "Browser Actions",
     description: "GitHub Actions for Browsers",
-    siteUrl: "https://browser-actions.github.io",
+    siteUrl: "https://browser-actions.dev",
     social: {
       twitter: "ueokande",
     },
   },
   graphqlTypegen: true,
   plugins: [
+    "gatsby-plugin-sitemap",
+    {
+      resolve: "gatsby-plugin-canonical-urls",
+      options: {
+        siteUrl: "https://browser-actions.dev",
+      },
+    },
+    "gatsby-plugin-robots-txt",
     {
       resolve: "gatsby-source-filesystem",
       options: {
