@@ -9,24 +9,61 @@ import {
   Paragraph,
 } from "grommet";
 import { Actions as ActionsIcon, Github as GithubIcon } from "grommet-icons";
+import React from "react";
 import { CodeBlock } from "../components/code";
 import { Layout } from "../components/layout";
 import { ExternalLink } from "../components/link";
 import { Seo } from "../components/seo";
-import type { ActionType } from "../types";
+import type { ActionType, VersionType } from "../types";
 
 type PageContext = {
   name: string;
   action: ActionType;
+  version: VersionType;
 };
 
 interface Props {
   pageContext: PageContext;
 }
 
+const MAX_LINE_LENGTH = 54;
+
+const generateUsage = (
+  name: string,
+  action: ActionType,
+  version: VersionType,
+): string => {
+  let line = `- uses: browser-actions/${name}@${version.major}\n`;
+  if (action.inputs) {
+    line += "  with:\n";
+    for (const [key, input] of Object.entries(action.inputs)) {
+      const segmenter = new Intl.Segmenter("en", { granularity: "word" });
+      let commentLine = "";
+      for (const { segment } of segmenter.segment(input.description)) {
+        commentLine += `${segment}`;
+        if (commentLine.length > MAX_LINE_LENGTH) {
+          line += `    # ${commentLine.trim()}\n`;
+          commentLine = "";
+        }
+      }
+      if (commentLine !== "") {
+        line += `    # ${commentLine.trim()}\n`;
+      }
+
+      const value = input.default ?? `<your ${key.replace(/[-_]/g, " ")}>`;
+      line += `    ${key}: "${value}"\n`;
+    }
+  }
+
+  return line.trim();
+};
+
 const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
-  const { name, action } = pageContext;
-  const usage = `- uses: browser-actions/${name}@latest`;
+  const { name, action, version } = pageContext;
+  const usage: string = React.useMemo(
+    () => generateUsage(name, action, version),
+    [name, action, version],
+  );
 
   return (
     <Layout>

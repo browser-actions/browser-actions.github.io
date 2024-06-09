@@ -7,29 +7,42 @@ import type { ActionType } from "./src/types";
 export const createPages: GatsbyNode["createPages"] = async ({
   actions: { createPage },
 }) => {
-  const actionFiles = (await fs.promises.readdir("./data/actions")).filter(
-    (file) => file.endsWith(".yaml") || file.endsWith(".yml"),
-  );
+  const actionDirs = await fs.promises.readdir("./data/actions");
 
-  for (const file of actionFiles) {
-    const slug = path.basename(file, path.extname(file));
-    const content = await fs.promises.readFile(
-      `./data/actions/${file}`,
-      "utf-8",
-    );
+  for (const dir of actionDirs) {
+    let actionYml: string;
+    let versionYml: string;
+    try {
+      actionYml = await fs.promises.readFile(
+        `./data/actions/${dir}/action.yml`,
+        "utf-8",
+      );
+      versionYml = await fs.promises.readFile(
+        `./data/actions/${dir}/version.yml`,
+        "utf-8",
+      );
+    } catch (error) {
+      console.warn(`Failed to read action.yaml in ${dir}`, String(error));
+      continue;
+    }
+
     const { name, description, inputs, outputs } = yaml.load(
-      content,
+      actionYml,
     ) as ActionType;
+    const { major } = yaml.load(versionYml);
     createPage({
-      path: `/${slug}/`,
+      path: `/${dir}/`,
       component: path.resolve("./src/templates/action.tsx"),
       context: {
-        name: slug,
+        name: dir,
         action: {
           name,
           description,
           inputs,
           outputs,
+        },
+        version: {
+          major,
         },
       },
     });
