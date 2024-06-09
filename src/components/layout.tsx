@@ -87,7 +87,15 @@ const AppHeader = () => {
 
 const AppFooter = () => {
   return (
-    <Footer background="dark-1" pad="medium" justify="between">
+    <Footer
+      background="dark-1"
+      pad="medium"
+      justify="between"
+      style={{
+        position: "sticky",
+        top: "100vh",
+      }}
+    >
       <Text>
         Copyright by{" "}
         <ExternalLink href="https://github.com/ueokande">
@@ -106,7 +114,9 @@ export const Layout: React.FC<Props> = ({ children }) => {
   return (
     <Grommet theme={grommet} full>
       <AppHeader />
-      <Main margin={{ top: "large" }}>{children}</Main>
+      <Main margin={{ top: "large" }} fill={false}>
+        {children}
+      </Main>
       <AppFooter />
     </Grommet>
   );
