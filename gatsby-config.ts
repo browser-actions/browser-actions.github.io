@@ -5,7 +5,7 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: "Browser Actions",
     description: "GitHub Actions for Browsers",
-    siteUrl: "https://browser-actions.github.io",
+    siteUrl: "https://browser-actions.dev",
     social: {
       twitter: "ueokande",
     },
