@@ -26,3 +26,7 @@ export type ActionType = {
   outputs?: Record<string, ActionOutputType>;
   runs: ActionJavaScriptRunsType;
 };
+
+export type VersionType = {
+  major: string;
+};

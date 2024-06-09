@@ -13,11 +13,12 @@ import { CodeBlock } from "../components/code";
 import { Layout } from "../components/layout";
 import { ExternalLink } from "../components/link";
 import { Seo } from "../components/seo";
-import type { ActionType } from "../types";
+import type { ActionType, VersionType } from "../types";
 
 type PageContext = {
   name: string;
   action: ActionType;
+  version: VersionType;
 };
 
 interface Props {
@@ -25,8 +26,8 @@ interface Props {
 }
 
 const ActionPage: React.FC<PageProps & Props> = ({ pageContext }) => {
-  const { name, action } = pageContext;
-  const usage = `- uses: browser-actions/${name}@latest`;
+  const { name, action, version } = pageContext;
+  const usage = `- uses: browser-actions/${name}@${version.major}`;
 
   return (
     <Layout>

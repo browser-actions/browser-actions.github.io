@@ -10,10 +10,15 @@ export const createPages: GatsbyNode["createPages"] = async ({
   const actionDirs = await fs.promises.readdir("./data/actions");
 
   for (const dir of actionDirs) {
-    let content: string;
+    let actionYml: string;
+    let versionYml: string;
     try {
-      content = await fs.promises.readFile(
-        `./data/actions/${dir}/action.yaml`,
+      actionYml = await fs.promises.readFile(
+        `./data/actions/${dir}/action.yml`,
+        "utf-8",
+      );
+      versionYml = await fs.promises.readFile(
+        `./data/actions/${dir}/version.yml`,
         "utf-8",
       );
     } catch (error) {
@@ -22,8 +27,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
     }
 
     const { name, description, inputs, outputs } = yaml.load(
-      content,
+      actionYml,
     ) as ActionType;
+    const { major } = yaml.load(versionYml);
     createPage({
       path: `/${dir}/`,
       component: path.resolve("./src/templates/action.tsx"),
@@ -34,6 +40,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
           description,
           inputs,
           outputs,
+        },
+        version: {
+          major,
         },
       },
     });
